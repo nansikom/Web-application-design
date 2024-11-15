@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <style>
+         body{
+            background-color: aquamarine;
+         }
+        </style>
+    </head>
+    <body>
+      <header>Addsong dear</header>
+<form>
+   <button type="add"><a href = "addsong.html" >addsong </a></button>
+   <button type="search"><a href = "searchbygenre.html">search</a></button>
+   <button type="list"><a href = "listsongs.html">list</a></button>
+   <button type="delete"><a href = "deletesong.html">deletesong</a></button>
+   <button type="update"><a href = "updatesong.html">updatesong</a></button>
+   <!--I created diiferent imputs to in text format.I got this template from our zy book
+   link is here https://learn.zybooks.com/zybook/OREGONSTATECS290CoffmanSpring2023/chapter/9/section/10-->
+    <p>
+       <label for="title">Title:</label>
+       <input type="text" id="title">
+    </p>
+    <p>
+       <label for="artist">Artist:</label>
+       <input type="text" id="artist">
+    </p>
+    <p>
+       <label for="released">Released:</label>
+       <input type="date" id="released">
+    </p>
+    <p>
+       <label for="popularity">Popularity:</label>
+       <input type="number" min="1" max="10" 
+          id="popularity">
+    </p>
+    <p>
+       <label for="genre">Genre:</label>
+       <input type="text" id="genre">
+    </p>
+    <p>
+       <input type="button" id="addBtn" value="Add">
+    </p>
+ 
+    <p id="error"></p>
+    <footer>
+      <p>&copy;The music company by Marie</p>
+  </footer>
+ </form>
+ </body>
+ <script>
+   addEventListener("DOMContentLoaded", function() {
+    document.querySelector("#addBtn").addEventListener("click", addSong);
+ });
+ /**
+  * function that creates the object and assigns the required fields
+  * I got this function in our zy book link
+  * it uses the add song function to await a promise from the api and is waiting to return the set promise and linking it to the router to see if the get the promise
+  * https://learn.zybooks.com/zybook/OREGONSTATECS290CoffmanSpring2023/chapter/9/section/10
+  */
+ async function addSong() {
+    // Create a song object from the form fields
+    const Song = {
+       title: document.querySelector("#title").value,
+       artist: document.querySelector("#artist").value,
+       releaseDate: document.querySelector("#released").value,
+       popularity: document.querySelector("#popularity").value,
+       genre: document.querySelector("#genre").value ? 
+          document.querySelector("#genre").value.split(",") : []
+    };
+ 
+     //POST a JSON-encoded song to Music API
+     const response = await fetch("/api/songs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Song)
+     });
+  //checking if the response is ok and resetting of the form
+  //this also was from lecture.
+    if (response.ok) {
+       const results = await response.json();
+      // if (results[4]){
+       //console.log(results[4]._id);
+       console.log(results);
+       //}
+       // Reset the form after adding the song
+       document.querySelector("form").reset();
+    }
+    else {
+       document.querySelector("#error").innerHTML = "Cannot add song.";
+    }     
+}
+
+
+
+ </script>
+</html>

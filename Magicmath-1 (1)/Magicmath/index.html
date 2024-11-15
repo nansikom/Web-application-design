@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Magic Math</title>
+      <link rel="stylesheet" href="magicmath.css">
+      <script src="magicmath.js" defer></script>
+   </head>
+   <body>
+      <h1>Magic Math</h1>
+      
+      <table> 
+         <tr>
+            <td style= "width: 70%">Goal: <span id="goal"></span></td>
+            <td style= "width: 15%" >Win: <span id="winCount"></span></td>
+            <td style= "width: 15%">Losses: <span id="loseCount"></span></td>
+         </tr>
+      </table>
+      <!-- 2x2 grid for the game board -->
+      <div class="right-menu">
+         
+      <div id="gameBoard">
+
+         <button id="random.number" onclick="calculation(this,1)">5</button>
+         <button id="random.number1" onclick="calculation(this,1)">7</button>
+         <button id="random.number2" onclick="calculation(this,1)">5</button>
+         <button id="random.number3" onclick="calculation(this,1)">3</button>
+
+      </div>
+      
+      <div id="operations" class="right-menu" >
+
+         <button id="addbutton" onclick="calculation(this,0)">+</button>
+         <button id="subtractbutton" onclick="calculation(this,0)">-</button>
+         <button id="multiplicationbutton" onclick="calculation(this,0)">*</button>
+
+         
+          <div class="box" onclick="hideBox()"></div>
+      </div>
+      <div id="workarea" >
+
+      
+      <h2 >Work area</h2>
+      <ol>
+         
+      </ol>
+      </div>
+      
+
+      <div>
+
+
+      </div>
+   </div>
+
+      <p id="turnInfo">Your turn</p>
+      <button id="newGameButton" onclick="newGame()">New game</button>
+   </body>
+   <footer>
+      <h3>Sabri Abounozha, Mary Nansikombi, Dennis Aguilar  5/8/2023</h3>
+   </footer>
+</html>

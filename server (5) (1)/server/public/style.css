@@ -1,0 +1,55 @@
+body{
+    margin :0;
+    padding:0
+
+}
+header{
+    background-color: peachpuff;
+    color: white;
+    padding:10px;
+
+
+}
+nav{
+    background-color: purple; 
+    padding: 5px
+
+}
+nav ul li{
+    display:inline;
+    margin-right:5px;
+
+
+}
+footer{
+    background-color: pink;
+    color:royalblue;
+    padding:30px;
+    text-align:center;
+}
+thead {
+    background-color: blue;
+    font-weight: bold;
+  }
+
+  /* Apply styles to the header cells */
+  th {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid black;
+  }
+  tr {
+    border-bottom: 1px solid #ccc;
+    border-color: black;
+    border-bottom: 1px solid black;
+  }
+  table {
+    border-collapse: separate;
+    background-color: green;
+    border-spacing: 10px
+  }
+  td {
+    padding: 10px;
+    border-right: 1px solid black;
+  }

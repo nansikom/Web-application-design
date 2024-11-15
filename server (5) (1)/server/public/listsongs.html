@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title></title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+<header>List of all my songs</header>
+<form> 
+      
+      
+  <button type="add"><a href = "addsong.html" >addsong </a></button>
+  <button type="search"><a href = "searchbygenre.html">search</a></button>
+  <button type="list"><a href = "listsongs.html">list</a></button>
+  <button type="delete"><a href = "deletesong.html">deletesong</a></button>
+  <button type="update"><a href = "updatesong.html">updatesong</a></button>
+  
+      <table id = "songtable"></table>
+      <footer>
+        <p>&copy;The music company by Marie</p>
+    </footer>
+</form>
+</body>
+      <script>
+          addEventListener("DOMContentLoaded", async  function(){
+              const response = await fetch("/api/songs");
+              const songs = await response.json();
+              //getAllSongs();
+
+          
+          //async function getAllSongs(){
+              
+              //console.log(songs)
+              let html = `<tr><th>ID</th><th>title</th><th>Artist</th><th>popularity</th><th>Genre</th><th>releaseDate</th>`
+                  for (let song of songs){
+                     // let releaseDate=new date(song.releaseDate).tolocaleDateString();
+                      html +=`<tr><td>${song._id}</td><td>${song.title}</td><td>${song.artist}</td><td>${song.popularity}</td><td>${song.genre}</td><td>${song.releaseDate}</td>`
+                  }
+                  document.querySelector("#songtable").innerHTML=html;
+                  //return;
+           });
+      </script>
+      
+
+</html>
+
+

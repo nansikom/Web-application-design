@@ -1,0 +1,58 @@
+/* Names: Sabri Abounozha Mary Nansikombi, Dennis Aguilar
+we all worked on this assignmnet collectively 
+*/
+body {
+   font-family: Roboto, Helvetica, sans-serif;
+   
+}
+
+.x {
+   color: red;
+}
+
+.o {
+   color: blue;
+}
+h1{
+   background-color: coral;
+}
+h3{
+   background-color: coral;
+}
+h2{
+   h2.solid {border-style: solid;}
+}
+.right-menu {
+   display: flex;
+ }
+ #workarea{
+    height: 200px;
+    width: 700px;
+    border: 2px solid black;
+ }
+ 
+#gameBoard {
+   font: 50px arial, sans-serif;
+   margin: 3px;
+
+   display: grid;
+   grid-template-columns: 100px 100px ;
+   grid-template-rows: 100px 100px;
+   grid-gap: 10px;
+}
+#operations{
+   font: 85px arial,sans-serif;
+   margin: 50px;
+
+   display: grid;
+   grid-template-columns: 50px;
+   grid-template-rows: 50px 50px 50px;
+   grid-gap: 10px;
+
+}
+#gameBoard > button {
+   border: 1px solid LightSkyBlue;
+   text-align: center;
+   font-size: 100%;
+   font-family: inherit;
+}

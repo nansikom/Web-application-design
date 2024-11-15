@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <header>Deletesong dear</header>
+<form> 
+        
+    <button type="add"><a href = "addsong.html" >addsong </a></button>
+    <button type="search"><a href = "searchbygenre.html">search</a></button>
+    <button type="list"><a href = "listsongs.html">list</a></button>
+    <button type="delete"><a href = "deletesong.html">deletesong</a></button>
+    <button type="update"><a href = "updatesong.html">updatesong</a></button>
+    <select id="songDropDown">
+    </select>
+    
+    <input type="button" value="Delete" id="deleteBtn">
+    <div id="error"></div>
+   <p id="error"></p>
+    <footer>
+        <p>&copy;The music company by Marie</p>
+    </footer>
+</form>
+    </body>
+    <script>
+/**
+ * this function I got it from the zy book and the rest down,I manipulated them to make them work with the right router
+ * it uses async and fetches the right Api to get all the songs and another async function to delete the ongs by using the api
+ * to get and connect to the route using the method defined to ensure the song has been deleted.it uses response ok method and get all songs method to get the songs.
+ * link to the zy book example that helped me is here https://learn.zybooks.com/zybook/OREGONSTATECS290CoffmanSpring2023/chapter/9/section/10
+ */
+addEventListener("DOMContentLoaded", async function() {
+   document.querySelector("#deleteBtn").addEventListener("click", deleteSong);
+   getAllSongs();
+});
+
+// Load all songs into the drop-down list
+async function getAllSongs() {
+   const response = await fetch("/api/songs");
+   if (response.ok) {
+      const songs = await response.json();
+      let html = "";
+      for (let song of songs) {
+         html += `<option value="${song._id}">${song.title}</option>`; 
+      }
+
+      document.querySelector("#songDropDown").innerHTML = html;
+   }
+}
+
+async function deleteSong() {
+   // Get the song ID of the selected song
+   const songId = document.querySelector(
+      "#songDropDown option:checked").value;
+
+   const response = await fetch("/api/songs/" + songId,{
+      method: "DELETE"
+   });
+
+   if (response.ok) {
+      // Successfully deleted song
+      getAllSongs();
+   }
+   else {
+      document.querySelector("#error").innerHTML = "Cannot delete song.";
+   } 
+}
+    </script>
+</html>

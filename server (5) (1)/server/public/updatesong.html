@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <style>
+            body{
+                background-color: bisque;
+            }
+        </style>
+    </head>
+    <body>
+        <header>Update song</header>
+<form> 
+        
+    <button type="add"><a href = "addsong.html" >addsong </a></button>
+    <button type="search"><a href = "searchbygenre.html">search</a></button>
+    <button type="list"><a href = "listsongs.html">list</a></button>
+    <button type="delete"><a href = "deletesong.html">deletesong</a></button>
+    <button type="update"><a href = "updatesong.html">updatesong</a></button>
+    <p>
+        <label for="songId">ID:</label>
+        <input type="text" id="songId">
+     </p>
+     <p>
+        <label for="title">Title:</label>
+        <input type="text" id="title">
+     </p>
+     <p>
+        <label for="artist">Artist:</label>
+        <input type="text" id="artist">
+     </p>
+     <p>
+        <label for="released">Released:</label>
+        <input type="date" id="released">
+     </p>
+     <p>
+        <label for="popularity">Popularity:</label>
+        <input type="number" min="1" max="10" 
+           id="popularity">
+     </p>
+     <p>
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre">
+     </p>
+     <p>
+        <input type="button" id="updateBtn" 
+           value="Update">
+     </p>
+  
+     <p id="error"></p>
+  
+    <footer>
+        <p>&copy;The music company by Marie</p>
+    </footer>
+</form>
+</body>
+<script>
+/**
+  * function that uses an async function and looks for a promise
+  * and looks for a promise awaits it and couples it with the right routes defined in my song.js.
+  * I got this function in our zy book link
+  * https://learn.zybooks.com/zybook/OREGONSTATECS290CoffmanSpring2023/chapter/9/section/10
+  */
+addEventListener("DOMContentLoaded", async function() {
+   document.querySelector("#updateBtn").addEventListener("click", updateSong);
+
+   // Load a song into the web form
+   const songId = "6483dc9534aa33145d8e901f";
+   //const songId = song._id;
+   //const response = await fetch("/api/songs/" + songId);
+   const response = await fetch("/api/songs/" + songId);
+   if (response.ok) {
+      let song = await response.json();
+      document.querySelector("#songId").value = song._id;
+      document.querySelector("#title").value = song.title;
+      document.querySelector("#artist").value = song.artist;
+      document.querySelector("#released").value = 
+         song.releaseDate.substring(0, 10);
+      document.querySelector("#popularity").value = song.popularity;
+      document.querySelector("#genre").value = song.genre;
+   }
+});
+/**
+  * function that uses an async function and looks for a promise
+  * and looks for a promise awaits it and couples it with the right routes defined in my song.js.
+  * I got this function in our zy book link
+  * it updates using the api to updat both the our list songs and the database
+  * https://learn.zybooks.com/zybook/OREGONSTATECS290CoffmanSpring2023/chapter/9/section/10
+  */
+async function updateSong() {
+   // Create a song object from the form fields
+   const song = {
+      _id: document.querySelector("#songId").value,
+      title: document.querySelector("#title").value,
+      artist: document.querySelector("#artist").value,
+      releaseDate: document.querySelector("#released").value,
+      popularity: document.querySelector("#popularity").value,
+      genre: document.querySelector("#genre").value ? 
+         document.querySelector("#genre").value.split(",") : []
+   };
+        
+    // Send PUT request with JSON-encoded song to Music API
+   const response = await fetch("/api/songs/" + song._id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(song)
+   });
+
+   if (response.ok) {      
+      alert("Updated song.");
+   }
+   else {
+      document.querySelector("#error").innerHTML = "Cannot update song.";
+   }     
+}
+</script>
+</html>
